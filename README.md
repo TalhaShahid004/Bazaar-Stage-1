@@ -10,16 +10,6 @@ Running a kiryana store involves managing hundreds of products, tracking sales, 
 
 The system focuses on the essential needs of a kiryana store. It provides inventory tracking with visual low-stock alerts and a simple interface for recording sales and stock deliveries. Store owners can view daily performance reports to track business health and create one-click backups to protect their data. The system works offline for areas with unreliable internet.
 
-## Why I Built It This Way
-
-Kiryana store owners are busy people who need practical tools. It is a high volume, cash heavy environment. They can have 100s-1000s of daily household items. I designed this system for frequent small transactions, diverse inventory, and owners who need clear reports at a glance.
-
-The database is locally stored, barring any connectivity issues. The system is simple, allowing for bare functionality without unnecessary complex features, easy to operate with minimal keystrokes.
-
-## Data Structure
-
-The system uses a simple approach where all inventory changes (sales, deliveries, adjustments) are recorded as movements, creating a reliable audit trail and making it impossible to lose track of inventory.
-
 ## Installation
 
 To install and run the system:
@@ -39,13 +29,15 @@ pip install tabulate
 python main.py
 ```
 
-## Future Development
+## Why I Built It This Way
 
-The system is designed to grow in three stages:
-1. **Current stage**: Single store management
-2. **Stage 2**: Support for multiple stores (up to 500)
-3. **Stage 3**: Enterprise-scale with thousands of stores
+Kiryana store owners are busy people who need practical tools. It is a high volume, cash heavy environment. They can have 100s-1000s of daily household items. I designed this system for frequent small transactions, diverse inventory, and owners who need clear reports at a glance.
 
-## License
+The database is locally stored, barring any connectivity issues. The system is simple, allowing for bare functionality without unnecessary complex features, easy to operate with minimal keystrokes.
 
-[Specify license information]
+## Data Structure
+
+The system uses a simple approach where all inventory changes (sales, deliveries, adjustments) are recorded as movements, creating a reliable audit trail and making it impossible to lose track of inventory.
+
+
+
