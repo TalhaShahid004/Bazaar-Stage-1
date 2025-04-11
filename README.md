@@ -12,6 +12,7 @@ The system focuses on the essential needs of a kiryana store. It provides invent
 
 ![features](https://github.com/user-attachments/assets/c5b4731d-bb2e-4af5-ba24-7333582a22ad)
 ![paint](https://github.com/user-attachments/assets/d6c1364d-5875-4353-9af0-a7b6f19662f8)
+![paint](https://github.com/user-attachments/assets/ec3f24b5-8f65-4ef7-905b-c7115e49c586)
 
 
 
