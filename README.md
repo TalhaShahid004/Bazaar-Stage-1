@@ -42,5 +42,7 @@ The database is locally stored, barring any connectivity issues. The system is s
 
 The system uses a simple approach where all inventory changes (sales, deliveries, adjustments) are recorded as movements, creating a reliable audit trail and making it impossible to lose track of inventory.
 
+![Db](https://github.com/user-attachments/assets/16f891d4-627b-483d-a461-5cec57ac4154)
+
 
 
