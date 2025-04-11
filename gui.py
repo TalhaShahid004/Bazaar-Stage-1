@@ -440,6 +440,7 @@ class InventoryApp:
         ttk.Button(button_frame, text="Save Product", command=save_product).pack(side=tk.LEFT, padx=5)
         ttk.Button(button_frame, text="Cancel", command=self.show_inventory).pack(side=tk.LEFT, padx=5)
     
+   
     def show_stock_in(self, product_id=None):
         self.clear_content_frame()
         
@@ -462,6 +463,9 @@ class InventoryApp:
         
         product_display = ttk.Entry(product_frame, textvariable=self.product_name_display, width=30, state='readonly')
         product_display.pack(side=tk.LEFT, padx=5)
+        
+        # Define price_var here, BEFORE it might be used
+        price_var = tk.StringVar()
         
         def select_product():
             product_selector = ProductSelector(self.root, self.inventory_db)
@@ -496,7 +500,7 @@ class InventoryApp:
         price_frame.pack(fill=tk.X, pady=10)
         
         ttk.Label(price_frame, text="Purchase Price:", background="#f0f0f0").pack(side=tk.LEFT)
-        price_var = tk.StringVar()
+        # price_var was moved up before it's first used
         ttk.Entry(price_frame, textvariable=price_var, width=10).pack(side=tk.LEFT, padx=5)
         
         # Notes
@@ -551,7 +555,7 @@ class InventoryApp:
         
         ttk.Button(button_frame, text="Record Stock", command=save_stock_in).pack(side=tk.LEFT, padx=5)
         ttk.Button(button_frame, text="Cancel", command=self.show_inventory).pack(side=tk.LEFT, padx=5)
-    
+        
     def show_sales(self, product_id=None):
         self.clear_content_frame()
         
