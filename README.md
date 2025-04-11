@@ -10,7 +10,7 @@ Running a kiryana store involves managing hundreds of products, tracking sales, 
 
 The system focuses on the essential needs of a kiryana store. It provides inventory tracking with visual low-stock alerts and a simple interface for recording sales and stock deliveries. Store owners can view daily performance reports to track business health and create one-click backups to protect their data. The system works offline for areas with unreliable internet.
 
-![image](https://github.com/user-attachments/assets/6ab038e8-d442-440d-ad39-ecb005077537)
+![Features](https://github.com/user-attachments/assets/e261d61d-d9a9-452e-9b22-f162b186ebfd)
 
 ## Installation
 
