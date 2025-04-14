@@ -10,15 +10,13 @@ The system tracks stock movements in real-time, sends low stock alerts, and gene
 
 ## Why This Design?
 
-### For Non-Technical Readers
-
 I built this system to be simple and practical. The web interface works on any device with a browser - no special software needed. Having one central product list keeps things consistent, but each store still manages its own inventory.
 
 The dashboard shows important inventory info at a glance and highlights items running low. The reports help owners understand sales patterns and inventory value to make smarter business choices.
 
 I added basic security with API keys so only authorized people can access store data, plus rate limiting to prevent system overload.
 
-### For Technical Readers
+## Technical Design 
 
 My design choices were based on needing to support 500+ stores while keeping a good balance of features, performance, and simplicity for this proof-of-concept.
 
