@@ -20,6 +20,8 @@ I added basic security with API keys so only authorized people can access store 
 
 My design choices were based on needing to support 500+ stores while keeping a good balance of features, performance, and simplicity for this proof-of-concept.
 
+![image](https://github.com/user-attachments/assets/ee422228-872e-4963-a4fd-6573f5f3fc93)
+
 #### Backend Architecture
 
 I picked FastAPI for my backend because it:
@@ -33,6 +35,8 @@ PostgreSQL made sense as the database because it has:
 - Good handling of concurrent connections
 - Solid performance for complex queries
 - Clear upgrade path for cloud deployment
+
+![image](https://github.com/user-attachments/assets/c245c2f8-b468-4636-8a77-eb2b1cc9dd74)
 
 Using a central product catalog with store-specific inventory tables gives a good balance of normalization and query performance, making product management efficient while supporting per-store inventory tracking.
 
