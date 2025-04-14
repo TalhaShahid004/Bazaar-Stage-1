@@ -1,50 +1,75 @@
-# Kiryana Store Inventory System
+# Bazaar Inventory Tracking System
 
-A straightforward inventory management system built for kiryana stores, designed with simplicity and practicality in mind.
+A scalable inventory management solution for kiryana stores that evolves from a single store to thousands of stores.
 
-## Overview
+## What Is This?
 
-Running a kiryana store involves managing hundreds of products, tracking sales, and maintaining appropriate stock levels. This application provides a simple solution to these challenges without requiring technical expertise.
+This is my solution to the Bazaar Technologies Engineering challenge. I've designed an inventory system that starts simple and scales up through three stages:
 
-## Key Features
+- **Stage 1:** Single store inventory tracking
+- **Stage 2:** Support for 500+ stores with central product catalog
+- **Stage 3:** Scalable system for thousands of stores with real-time sync
 
-The system focuses on the essential needs of a kiryana store. It provides inventory tracking with visual low-stock alerts and a simple interface for recording sales and stock deliveries. Store owners can view daily performance reports to track business health and create one-click backups to protect their data. The system works offline for areas with unreliable internet.
-
-
-![paint3](https://github.com/user-attachments/assets/90d53c03-d0a8-49fe-82ac-8e595ef09a84)
-
-
-## Installation
-
-To install and run the system:
+## Project Structure
 
 ```
-# 1. Make sure Python 3.6+ is installed
-
-# 2. Install required packages
-pip install tk
-pip install tkcalendar
-pip install colorama
-pip install tabulate
-
-# 3. Download the application files
-
-# 4. Run the application
-python main.py
+bazaar-inventory/
+├── Stage-1/   # Single store with local storage
+├── Stage-2/   # Multi-store with centralized database
+└── Stage-3/   # Distributed system for thousands of stores
 ```
 
-## Why I Built It This Way
+## Stage 1: Single Store
 
-Kiryana store owners are busy people who need practical tools. It is a high volume, cash heavy environment. They can have 100s-1000s of daily household items. I designed this system for frequent small transactions, diverse inventory, and owners who need clear reports at a glance.
+A desktop application that helps a single kiryana store track inventory.
 
-The database is locally stored, barring any connectivity issues. The system is simple, allowing for bare functionality without unnecessary complex features, easy to operate with minimal keystrokes.
+- Product management and stock tracking
+- Sales recording and daily reports
+- Low stock alerts
+- Works offline with local database
 
-## Data Structure
+[See Stage 1 Details](./Stage-1/README.md)
 
-The system uses a simple approach where all inventory changes (sales, deliveries, adjustments) are recorded as movements, creating a reliable audit trail and making it impossible to lose track of inventory.
+## Stage 2: Multiple Stores
 
-![db](https://github.com/user-attachments/assets/062575e6-8bde-4784-a6ed-f07b50631243)
+A web-based system that supports hundreds of stores with a central product catalog.
 
+- REST API for inventory operations
+- Web interface for all devices
+- Store-specific inventory tracking
+- Basic security and rate limiting
 
+[See Stage 2 Details](./Stage-2/README.md)
 
+## Stage 3: Enterprise Scale
 
+A distributed system designed to handle thousands of stores with concurrent operations.
+
+- Microservices for independent scaling
+- Event-driven design for real-time updates
+- Performance optimizations with caching
+- Comprehensive audit logging
+
+[See Stage 3 Details](./Stage-3/README.md)
+
+## Technology Evolution
+
+The system evolves through these technologies:
+
+1. **Stage 1:** Python, SQLite, Tkinter
+2. **Stage 2:** FastAPI, PostgreSQL, Bootstrap frontend
+3. **Stage 3:** Microservices, Kafka, Redis, Kubernetes
+
+## Key Features Across All Stages
+
+- Product inventory tracking
+- Recording stock arrivals and sales
+- Inventory adjustments
+- Low stock alerts
+- Reporting and analytics
+
+Each stage maintains these core features while adding capabilities to handle increased scale.
+
+## Running the Project
+
+Each stage has its own setup instructions in its README file.
