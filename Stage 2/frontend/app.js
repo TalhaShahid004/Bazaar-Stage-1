@@ -159,7 +159,7 @@ function loadInventorySummary() {
                     <div class="col-md-12">
                         <div class="stat-card success">
                             <h5>Total Inventory Value</h5>
-                            <p>₹${summary.total_value.toFixed(2)}</p>
+                            <p>$${summary.total_value.toFixed(2)}</p>
                         </div>
                     </div>
                 </div>
@@ -246,7 +246,7 @@ function loadRecentTransactions() {
                 data.forEach(movement => {
                     const movementClass = `movement-${movement.movement_type}`;
                     const valueText = movement.unit_price 
-                        ? `₹${(movement.quantity * movement.unit_price).toFixed(2)}` 
+                        ? `$${(movement.quantity * movement.unit_price).toFixed(2)}` 
                         : '-';
                     
                     html += `
@@ -322,8 +322,8 @@ function loadProducts() {
                         <td>${product.code || '-'}</td>
                         <td>${product.name}</td>
                         <td>${product.category || '-'}</td>
-                        <td>₹${product.purchase_price?.toFixed(2) || '-'}</td>
-                        <td>₹${product.selling_price?.toFixed(2) || '-'}</td>
+                        <td>$${product.purchase_price?.toFixed(2) || '-'}</td>
+                        <td>$${product.selling_price?.toFixed(2) || '-'}</td>
                         <td>
                             <button class="btn btn-sm btn-outline-primary me-1" onclick="editProduct(${product.id})">Edit</button>
                             <button class="btn btn-sm btn-outline-success" onclick="showStockInModal(${product.id})">Stock In</button>
@@ -424,8 +424,8 @@ function updateProductTable(products) {
                 <td>${product.code || '-'}</td>
                 <td>${product.name}</td>
                 <td>${product.category || '-'}</td>
-                <td>₹${product.purchase_price?.toFixed(2) || '-'}</td>
-                <td>₹${product.selling_price?.toFixed(2) || '-'}</td>
+                <td>$${product.purchase_price?.toFixed(2) || '-'}</td>
+                <td>$${product.selling_price?.toFixed(2) || '-'}</td>
                 <td>
                     <button class="btn btn-sm btn-outline-primary me-1" onclick="editProduct(${product.id})">Edit</button>
                     <button class="btn btn-sm btn-outline-success" onclick="showStockInModal(${product.id})">Stock In</button>
@@ -552,7 +552,7 @@ function loadInventory() {
                         <td>${item.product.name}</td>
                         <td>${item.product.category || '-'}</td>
                         <td class="${stockClass}">${item.current_quantity}</td>
-                        <td>₹${stockValue}</td>
+                        <td>$${stockValue}</td>
                         <td>
                             <button class="btn btn-sm btn-outline-primary me-1" onclick="updateInventoryItem(${item.product.id}, ${item.current_quantity})">Update</button>
                             <button class="btn btn-sm btn-outline-success me-1" onclick="showStockInModal(${item.product.id})">Stock In</button>
@@ -667,8 +667,8 @@ function loadMovements() {
                     const timestamp = new Date(movement.timestamp);
                     const dateStr = formatDate(timestamp);
                     const timeStr = timestamp.toLocaleTimeString();
-                    const unitPrice = movement.unit_price ? `₹${movement.unit_price.toFixed(2)}` : '-';
-                    const total = movement.unit_price ? `₹${(movement.quantity * movement.unit_price).toFixed(2)}` : '-';
+                    const unitPrice = movement.unit_price ? `$${movement.unit_price.toFixed(2)}` : '-';
+                    const total = movement.unit_price ? `$${(movement.quantity * movement.unit_price).toFixed(2)}` : '-';
                     
                     html += `
                     <tr>
@@ -962,7 +962,7 @@ function loadDailySalesReport() {
                     <td>${day.date}</td>
                     <td>${day.transaction_count}</td>
                     <td>${day.total_items}</td>
-                    <td>₹${day.total_revenue.toFixed(2)}</td>
+                    <td>$${day.total_revenue.toFixed(2)}</td>
                 </tr>
                 `;
             });
@@ -974,7 +974,7 @@ function loadDailySalesReport() {
                             <th>Total</th>
                             <th>${totalTransactions}</th>
                             <th>${totalItems}</th>
-                            <th>₹${totalRevenue.toFixed(2)}</th>
+                            <th>$${totalRevenue.toFixed(2)}</th>
                         </tr>
                     </tfoot>
                 </table>
@@ -1008,7 +1008,7 @@ function loadInventoryValueReport() {
                                 <h5 class="card-title">Inventory Summary</h5>
                                 <div class="stat-card success">
                                     <h5>Total Inventory Value</h5>
-                                    <p>₹${summary.total_value.toFixed(2)}</p>
+                                    <p>$${summary.total_value.toFixed(2)}</p>
                                 </div>
                                 <div class="stat-card primary">
                                     <h5>Total Products</h5>
@@ -1082,8 +1082,8 @@ function loadTopProductsByValue() {
                         <td>${item.product.name}</td>
                         <td>${item.product.category || '-'}</td>
                         <td>${item.current_quantity}</td>
-                        <td>₹${item.product.selling_price?.toFixed(2) || '-'}</td>
-                        <td>₹${item.value.toFixed(2)}</td>
+                        <td>$${item.product.selling_price?.toFixed(2) || '-'}</td>
+                        <td>$${item.value.toFixed(2)}</td>
                     </tr>
                     `;
                 });
