@@ -12,7 +12,7 @@ const API = {
     
     // Get selected store ID
     getStoreId() {
-        return document.getElementById('storeSelector').value;
+        return Number(document.getElementById('storeSelector').value);
     },
     
     // Helper method for API requests
@@ -87,7 +87,7 @@ const API = {
         
         update(id, productData) {
             return API.request(`/products/${id}`, {
-                method: 'PUT',
+                method: 'POST',
                 body: JSON.stringify(productData)
             });
         }
@@ -137,6 +137,7 @@ const API = {
                 })
             });
         }
+        
     },
     
     // Stock Movements API
@@ -152,9 +153,23 @@ const API = {
         },
         
         create(movementData) {
-            // Ensure store_id is set
+            // Ensure store_id is set and is a number
             if (!movementData.store_id) {
                 movementData.store_id = Number(API.getStoreId());
+            }
+            
+            // Ensure all numeric fields are numbers
+            if (typeof movementData.store_id === 'string') {
+                movementData.store_id = Number(movementData.store_id);
+            }
+            if (typeof movementData.product_id === 'string') {
+                movementData.product_id = Number(movementData.product_id);
+            }
+            if (typeof movementData.quantity === 'string') {
+                movementData.quantity = Number(movementData.quantity);
+            }
+            if (movementData.unit_price && typeof movementData.unit_price === 'string') {
+                movementData.unit_price = Number(movementData.unit_price);
             }
             
             return API.request('/movements/', {
@@ -162,6 +177,8 @@ const API = {
                 body: JSON.stringify(movementData)
             });
         },
+        
+        
         
         // Convenience methods for different movement types
         stockIn(productId, quantity, unitPrice, notes = '') {
