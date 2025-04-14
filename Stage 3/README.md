@@ -26,6 +26,8 @@ The system is divided into focused services:
 
 Each service can scale independently based on demand, with the inventory service likely requiring the most resources during peak times.
 
+![image](https://github.com/user-attachments/assets/94c84837-ec62-4407-aa50-d55eeb6a7417)
+
 ### Database Strategy
 - PostgreSQL for transactional data with read replicas
 - Read/write separation pattern to handle high query loads
