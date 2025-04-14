@@ -11,8 +11,12 @@ const API = {
     },
     
     // Get selected store ID
+    // In api.js
     getStoreId() {
-        return Number(document.getElementById('storeSelector').value);
+        const selectorValue = document.getElementById('storeSelector').value;
+        // Make sure we return a valid number - default to 1 if invalid
+        const storeId = parseInt(selectorValue, 10);
+        return isNaN(storeId) ? 1 : storeId;
     },
     
     // Helper method for API requests
@@ -67,15 +71,19 @@ const API = {
         }
     },
     
-    // Products API
     products: {
         getAll(params = {}) {
             console.log("Store ID:", API.getStoreId(), "Type:", typeof API.getStoreId());
-
+            
+            // If not explicitly provided, add store_id from selector
+            if (!params.store_id) {
+                params.store_id = API.getStoreId();
+            }
+            
             const queryParams = new URLSearchParams(params).toString();
             return API.request(`/products/?${queryParams}`);
         },
-        
+
         getById(id) {
             console.log("Store ID:", API.getStoreId(), "Type:", typeof API.getStoreId());
 
@@ -159,15 +167,15 @@ const API = {
         },
         
         create(movementData) {
-            // Ensure store_id is set and is a number
-            if (!movementData.store_id) {
-                movementData.store_id = Number(API.getStoreId());
-            }
+            // ALWAYS set the store_id from the current store selector
+            movementData.store_id = Number(API.getStoreId());
+            console.log("Setting movement store_id to:", movementData.store_id);
             
             // Ensure all numeric fields are numbers
             if (typeof movementData.store_id === 'string') {
                 movementData.store_id = Number(movementData.store_id);
             }
+        
             if (typeof movementData.product_id === 'string') {
                 movementData.product_id = Number(movementData.product_id);
             }
@@ -185,37 +193,39 @@ const API = {
         },
         
         
-        
-        // Convenience methods for different movement types
-        stockIn(productId, quantity, unitPrice, notes = '') {
-            return this.create({
-                product_id: Number(productId),
-                movement_type: 'stock_in',
-                quantity: Number(quantity),
-                unit_price: unitPrice ? Number(unitPrice) : null,
-                notes
-            });
-        },
-        
-        recordSale(productId, quantity, unitPrice, notes = '') {
-            return this.create({
-                product_id: Number(productId),
-                movement_type: 'sale',
-                quantity: Number(quantity),
-                unit_price: unitPrice ? Number(unitPrice) : null,
-                notes
-            });
-        },
-        
-        makeAdjustment(productId, quantity, notes = '') {
-            return this.create({
-                product_id: Number(productId),
-                movement_type: 'adjustment',
-                quantity: Number(quantity),
-                unit_price: null,
-                notes
-            });
-        }
+        // In api.js, in the movements object
+stockIn(productId, quantity, unitPrice, notes = '') {
+    return this.create({
+        store_id: Number(API.getStoreId()),  // Explicitly set store_id
+        product_id: Number(productId),
+        movement_type: 'stock_in',
+        quantity: Number(quantity),
+        unit_price: unitPrice ? Number(unitPrice) : null,
+        notes
+    });
+},
+
+recordSale(productId, quantity, unitPrice, notes = '') {
+    return this.create({
+        store_id: Number(API.getStoreId()),  // Explicitly set store_id
+        product_id: Number(productId),
+        movement_type: 'sale',
+        quantity: Number(quantity),
+        unit_price: unitPrice ? Number(unitPrice) : null,
+        notes
+    });
+},
+
+makeAdjustment(productId, quantity, notes = '') {
+    return this.create({
+        store_id: Number(API.getStoreId()),  // Explicitly set store_id
+        product_id: Number(productId),
+        movement_type: 'adjustment',
+        quantity: Number(quantity),
+        unit_price: null,
+        notes
+    });
+}
     },
     
     // Reports API

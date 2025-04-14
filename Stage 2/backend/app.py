@@ -21,9 +21,10 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=["http://localhost:8080"],  # Specific origin
     allow_credentials=True,
-    allow_methods=["*"],
+    allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],  # Explicitly list methods
     allow_headers=["*"],
 )
+
 
 # Add rate limit headers to responses
 @app.middleware("http")
@@ -127,10 +128,28 @@ def read_products(
     limit: int = 100, 
     category: Optional[str] = None,
     search: Optional[str] = None,
+    store_id: Optional[int] = None,
     db: Session = Depends(get_db),
     store_code: str = Depends(rate_limit_middleware)
 ):
+    # Basic query starts with all products
     query = db.query(Product)
+    
+    # Filter by store if store_id is provided
+    if store_id is not None:
+        # Check if store exists
+        store = db.query(Store).filter(Store.id == store_id).first()
+        if store:
+            # Get product IDs that have inventory in this store
+            inventory_product_ids = db.query(StoreInventory.product_id).filter(
+                StoreInventory.store_id == store_id
+            ).all()
+            inventory_product_ids = [p[0] for p in inventory_product_ids]
+            
+            # If there are products in inventory, filter by them
+            if inventory_product_ids:
+                query = query.filter(Product.id.in_(inventory_product_ids))
+            # If no products in inventory for this store, still allow all products
     
     # Apply category filter
     if category:
@@ -146,13 +165,7 @@ def read_products(
     products = query.offset(skip).limit(limit).all()
     return products
 
-@app.get("/products/{product_id}", response_model=schemas.Product)
-def read_product(product_id: int, db: Session = Depends(get_db),
-                store_code: str = Depends(rate_limit_middleware)):
-    db_product = db.query(Product).filter(Product.id == product_id).first()
-    if db_product is None:
-        raise HTTPException(status_code=404, detail="Product not found")
-    return db_product
+
 
 # Inventory endpoints
 @app.get("/inventory/", response_model=List[schemas.StoreInventory])

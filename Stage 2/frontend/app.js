@@ -42,6 +42,7 @@ document.addEventListener('DOMContentLoaded', function() {
     showPage('dashboard');
 });
 
+
 function showPage(pageName) {
     // Hide all pages
     document.querySelectorAll('.page-section').forEach(page => {
@@ -470,6 +471,7 @@ function handleEditProduct(productId) {
         });
 }
 
+
 function saveProduct() {
     // Get form data
     const productId = document.getElementById('productId').value;
@@ -487,18 +489,16 @@ function saveProduct() {
         return;
     }
     
-    // For editing existing products, we need to use a different code
-    // to avoid the unique constraint violation
+    let saveOperation;
     if (productId) {
-        // If we're editing, modify the code slightly to make it unique
-        if (productData.code) {
-            // Append current timestamp to ensure uniqueness
-            productData.code = productData.code + '_' + Date.now();
-        }
+        // Use update endpoint for existing products
+        saveOperation = API.products.update(productId, productData);
+    } else {
+        // Use create endpoint for new products
+        saveOperation = API.products.create(productData);
     }
     
-    // Always use create since the backend doesn't have an update endpoint
-    API.products.create(productData)
+    saveOperation
         .then(response => {
             // Close modal
             const productModal = bootstrap.Modal.getInstance(document.getElementById('productModal'));
@@ -511,6 +511,53 @@ function saveProduct() {
             showError(error.message);
         });
 }
+
+
+
+async function ensureStoresExist() {
+    try {
+        // First check if stores exist
+        const stores = await API.stores.getAll();
+        
+        // If no stores, create them
+        if (!stores || stores.length === 0) {
+            console.log("No stores found, creating stores...");
+            
+            try {
+                await API.stores.create({
+                    name: "Store 1",
+                    code: "store1",
+                    address: "Address 1",
+                    phone: "123-456-7890"
+                });
+                console.log("Store 1 created successfully");
+            } catch (error) {
+                console.log("Store 1 creation error:", error.message);
+            }
+            
+            try {
+                await API.stores.create({
+                    name: "Store 2",
+                    code: "store2",
+                    address: "Address 2",
+                    phone: "987-654-3210"
+                });
+                console.log("Store 2 created successfully");
+            } catch (error) {
+                console.log("Store 2 creation error:", error.message);
+            }
+            
+            // Refresh the store list
+            return API.stores.getAll();
+        }
+        
+        return stores;
+    } catch (error) {
+        console.error("Error ensuring stores exist:", error);
+        return [];
+    }
+}
+
 
 // Complete Inventory Functionality
 function loadInventory() {
