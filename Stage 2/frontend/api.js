@@ -37,11 +37,11 @@ const API = {
                     // Handle 401 Unauthorized
         if (response.status === 401) {
             localStorage.removeItem('apiKey');
-            window.location.reload();
+            // window.location.reload();
             throw new Error('Session expired. Please reload the page.');
         }
 
-        
+
             // Handle rate limiting
             if (response.status === 429) {
                 const resetTime = response.headers.get('X-RateLimit-Reset');
