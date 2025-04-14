@@ -13,10 +13,10 @@ This is my solution to the Bazaar Technologies Engineering challenge. I've desig
 ## Project Structure
 
 ```
-bazaar-inventory/
-├── Stage-1/   # Single store with local storage
-├── Stage-2/   # Multi-store with centralized database
-└── Stage-3/   # Distributed system for thousands of stores
+talhashahid004-bazaar-case-study/
+├── Stage 1/   # Single store with local storage
+├── Stage 2/   # Multi-store with centralized database
+└── Stage 3/   # Distributed system for thousands of stores
 ```
 
 ## Stage 1: Single Store
@@ -28,7 +28,7 @@ A desktop application that helps a single kiryana store track inventory.
 - Low stock alerts
 - Works offline with local database
 
-[See Stage 1 Details](./Stage-1/README.md)
+[See Stage 1 Details](./Stage%201/README.md)
 
 ## Stage 2: Multiple Stores
 
@@ -39,7 +39,7 @@ A web-based system that supports hundreds of stores with a central product catal
 - Store-specific inventory tracking
 - Basic security and rate limiting
 
-[See Stage 2 Details](./Stage-2/README.md)
+[See Stage 2 Details](./Stage%202/README.md)
 
 ## Stage 3: Enterprise Scale
 
@@ -50,7 +50,7 @@ A distributed system designed to handle thousands of stores with concurrent oper
 - Performance optimizations with caching
 - Comprehensive audit logging
 
-[See Stage 3 Details](./Stage-3/README.md)
+[See Stage 3 Details](./Stage%203/README.md)
 
 ## Technology Evolution
 
