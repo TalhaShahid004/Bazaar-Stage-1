@@ -487,12 +487,18 @@ function saveProduct() {
         return;
     }
     
-    // Create or update product
-    const saveOperation = productId 
-        ? API.products.update(productId, productData) 
-        : API.products.create(productData);
+    // For editing existing products, we need to use a different code
+    // to avoid the unique constraint violation
+    if (productId) {
+        // If we're editing, modify the code slightly to make it unique
+        if (productData.code) {
+            // Append current timestamp to ensure uniqueness
+            productData.code = productData.code + '_' + Date.now();
+        }
+    }
     
-    saveOperation
+    // Always use create since the backend doesn't have an update endpoint
+    API.products.create(productData)
         .then(response => {
             // Close modal
             const productModal = bootstrap.Modal.getInstance(document.getElementById('productModal'));

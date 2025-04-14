@@ -70,15 +70,21 @@ const API = {
     // Products API
     products: {
         getAll(params = {}) {
+            console.log("Store ID:", API.getStoreId(), "Type:", typeof API.getStoreId());
+
             const queryParams = new URLSearchParams(params).toString();
             return API.request(`/products/?${queryParams}`);
         },
         
         getById(id) {
+            console.log("Store ID:", API.getStoreId(), "Type:", typeof API.getStoreId());
+
             return API.request(`/products/${id}`);
         },
         
         create(productData) {
+            console.log("Store ID:", API.getStoreId(), "Type:", typeof API.getStoreId());
+
             return API.request('/products/', {
                 method: 'POST',
                 body: JSON.stringify(productData)
@@ -87,7 +93,7 @@ const API = {
         
         update(id, productData) {
             return API.request(`/products/${id}`, {
-                method: 'POST',
+                method: 'PUT',
                 body: JSON.stringify(productData)
             });
         }

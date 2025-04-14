@@ -58,6 +58,38 @@ def create_store(store: schemas.StoreCreate, db: Session = Depends(get_db),
     db.refresh(new_store)
     return new_store
 
+
+@app.put("/products/{product_id}", response_model=schemas.Product)
+def update_product(
+    product_id: int, 
+    product: schemas.ProductCreate, 
+    db: Session = Depends(get_db),
+    store_code: str = Depends(rate_limit_middleware)
+):
+    # Check if product exists
+    db_product = db.query(Product).filter(Product.id == product_id).first()
+    if db_product is None:
+        raise HTTPException(status_code=404, detail="Product not found")
+    
+    # Check if code is being changed and if new code already exists
+    if product.code and product.code != db_product.code:
+        existing_product = db.query(Product).filter(Product.code == product.code).first()
+        if existing_product:
+            raise HTTPException(status_code=400, detail="Product code already exists")
+    
+    # Update product fields
+    db_product.name = product.name
+    db_product.code = product.code
+    db_product.category = product.category
+    db_product.purchase_price = product.purchase_price
+    db_product.selling_price = product.selling_price
+    
+    db.commit()
+    db.refresh(db_product)
+    
+    return db_product
+
+
 @app.get("/stores/", response_model=List[schemas.Store])
 def read_stores(skip: int = 0, limit: int = 100, db: Session = Depends(get_db),
                store_code: str = Depends(rate_limit_middleware)):
