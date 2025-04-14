@@ -19,7 +19,7 @@ app = FastAPI(title="Kiryana Inventory API")
 # Add CORS middleware to allow frontend access
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # In production, specify your frontend domain
+    allow_origins=["http://localhost:8080"],  # Specific origin
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

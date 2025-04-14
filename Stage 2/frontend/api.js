@@ -19,21 +19,29 @@ const API = {
     async request(endpoint, options = {}) {
         const url = `${this.baseUrl}${endpoint}`;
         
-        // Default headers
         const headers = {
             'Content-Type': 'application/json',
             'X-API-Key': this.getApiKey()
         };
         
-        // Merge options with defaults
         const requestOptions = {
             headers,
+            credentials: 'include',  // Add this line
             ...options
         };
+
         
         try {
             const response = await fetch(url, requestOptions);
             
+                    // Handle 401 Unauthorized
+        if (response.status === 401) {
+            localStorage.removeItem('apiKey');
+            window.location.reload();
+            throw new Error('Session expired. Please reload the page.');
+        }
+
+        
             // Handle rate limiting
             if (response.status === 429) {
                 const resetTime = response.headers.get('X-RateLimit-Reset');

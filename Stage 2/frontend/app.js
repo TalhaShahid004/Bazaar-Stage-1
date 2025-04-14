@@ -2,7 +2,6 @@
  * Main Application JavaScript for Kiryana Inventory System
  */
 
-// DOM elements and initialization
 document.addEventListener('DOMContentLoaded', function() {
     // Navigation
     const navLinks = document.querySelectorAll('.nav-link[data-page]');
@@ -21,40 +20,27 @@ document.addEventListener('DOMContentLoaded', function() {
     initMovements();
     initReports();
     
-    // Store and API key changes
+    // Initialize store selector
     const storeSelector = document.getElementById('storeSelector');
-    storeSelector.addEventListener('change', function() {
-        // Save selected store to localStorage
-        localStorage.setItem('selectedStoreId', this.value);
-        refreshCurrentPage();
-    });
-    
     const apiKeyInput = document.getElementById('apiKeyInput');
-    apiKeyInput.addEventListener('change', function() {
-        // Save API key to localStorage
-        localStorage.setItem('apiKey', this.value);
+    // Set initial values
+    const savedStoreId = localStorage.getItem('selectedStoreId') || '1';
+    const apiKey = localStorage.getItem('apiKey') || (savedStoreId === '1' ? 'store1_api_key' : 'store2_api_key');
+    
+    storeSelector.value = savedStoreId;
+    apiKeyInput.value = apiKey;
+    // Store selector change handler
+    storeSelector.addEventListener('change', function() {
+        const newApiKey = this.value === '1' ? 'store1_api_key' : 'store2_api_key';
+        apiKeyInput.value = newApiKey;
+        localStorage.setItem('selectedStoreId', this.value);
+        localStorage.setItem('apiKey', newApiKey);
         refreshCurrentPage();
     });
-    
-    // Load saved values from localStorage
-    const savedStoreId = localStorage.getItem('selectedStoreId');
-    if (savedStoreId) {
-        storeSelector.value = savedStoreId;
-    }
-    
-    const savedApiKey = localStorage.getItem('apiKey');
-    if (savedApiKey) {
-        apiKeyInput.value = savedApiKey;
-    } else {
-        // Set default API key if none is saved
-        apiKeyInput.value = 'store1_api_key';
-        localStorage.setItem('apiKey', 'store1_api_key');
-    }
     
     // Show initial page (dashboard)
     showPage('dashboard');
 });
-
 
 function showPage(pageName) {
     // Hide all pages
@@ -289,4 +275,24 @@ function loadRecentTransactions() {
         .catch(error => {
             transactionsElement.innerHTML = `<div class="alert alert-danger">Error: ${error.message}</div>`;
         });
+}
+
+function initProducts() {
+    // Initialize products page
+    document.getElementById('addProductBtn').addEventListener('click', () => {
+        // Handle product creation
+    });
+    // Add other product-related initializations
+}
+
+function initInventory() {
+    // Initialize inventory page
+}
+
+function initMovements() {
+    // Initialize movements page
+}
+
+function initReports() {
+    // Initialize reports page
 }

@@ -22,21 +22,16 @@ rate_limit_store = {}
 api_key_header = APIKeyHeader(name="X-API-Key", auto_error=False)
 
 def get_api_key(api_key: str = Depends(api_key_header)):
-    """Validate API key and return store code."""
     if api_key is None:
-        raise HTTPException(
-            status_code=HTTP_401_UNAUTHORIZED,
-            detail="API Key header missing"
-        )
+        raise HTTPException(status_code=401, detail="API Key missing")
     
+    # Reverse lookup for API keys
     for store_code, key in API_KEYS.items():
         if api_key == key:
             return store_code
     
-    raise HTTPException(
-        status_code=HTTP_401_UNAUTHORIZED,
-        detail="Invalid API Key"
-    )
+    raise HTTPException(status_code=401, detail="Invalid API Key")
+
 
 async def rate_limit_middleware(request: Request, store_code: str = Depends(get_api_key)):
     """Apply rate limiting based on store code."""
