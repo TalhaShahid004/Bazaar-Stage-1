@@ -1,0 +1,120 @@
+/* Main Styles for Kiryana Inventory System */
+
+/* Page sections */
+.page-section {
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Loading placeholders */
+.loading-placeholder {
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f8f9fa;
+    border-radius: 5px;
+    color: #6c757d;
+}
+
+/* Card styling */
+.card {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    margin-bottom: 20px;
+}
+
+.card-header {
+    background-color: #f8f9fa;
+    font-weight: 500;
+}
+
+/* Table styling */
+.table thead th {
+    background-color: #f8f9fa;
+    font-weight: 500;
+}
+
+/* Status indicators */
+.status-low {
+    color: #dc3545;
+    font-weight: bold;
+}
+
+.status-ok {
+    color: #198754;
+}
+
+/* Movement type indicators */
+.movement-stock-in {
+    color: #198754;
+}
+
+.movement-sale {
+    color: #dc3545;
+}
+
+.movement-adjustment {
+    color: #fd7e14;
+}
+
+/* Dashboard cards */
+.stat-card {
+    border-left: 4px solid #0d6efd;
+    background-color: #f8f9fa;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 4px;
+}
+
+.stat-card h5 {
+    margin: 0;
+    color: #6c757d;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.stat-card p {
+    margin: 5px 0 0 0;
+    font-size: 1.8rem;
+    font-weight: 500;
+}
+
+.stat-card.primary {
+    border-left-color: #0d6efd;
+}
+
+.stat-card.success {
+    border-left-color: #198754;
+}
+
+.stat-card.danger {
+    border-left-color: #dc3545;
+}
+
+.stat-card.warning {
+    border-left-color: #fd7e14;
+}
+
+/* API Key input */
+#apiKeyInput {
+    max-width: 200px;
+}
+
+/* Store selector */
+#storeSelector {
+    width: 120px;
+}
+
+/* Responsive tables */
+@media (max-width: 768px) {
+    .table-responsive {
+        display: block;
+        width: 100%;
+        overflow-x: auto;
+    }
+}
